@@ -86,7 +86,11 @@
 		 hash-table-map
 		 hash-by-identity)
 
-  (import scheme chicken foreign)
+  (import (scheme)
+	  (chicken)
+	  (chicken foreign)
+	  (chicken flonum)
+	  (chicken keyword))
 
 
 ;;; Naming Conventions:
