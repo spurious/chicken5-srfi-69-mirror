@@ -1,6 +1,6 @@
 ;;;; hash-table-tests.scm
 
-(require-extension srfi-69 data-structures extras)
+(require-extension chicken.random data-structures srfi-69)
 
 (print "SRFI 69 procedures")
 (assert (eq? hash equal?-hash))
