@@ -84,6 +84,7 @@
 		 hash-table-fold
 		 hash-table-for-each
 		 hash-table-map
+		 hash-table-walk
 		 hash-by-identity)
 
   (import (scheme)
