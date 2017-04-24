@@ -3,5 +3,5 @@
  (author "The CHICKEN Team")
  (maintainer "The CHICKEN Team")
  (category data)
- (license "BSD"))
-
+ (license "BSD")
+ (components (extension srfi-69 (types-file))))
