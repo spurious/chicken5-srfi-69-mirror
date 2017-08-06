@@ -137,7 +137,7 @@
 (define-inline (exactify n)
   (if (##sys#immediate? n)
       n
-      (##core#inline "C_i_inexact_to_exact" n)))
+      (##core#inline_allocate ("C_s_a_u_i_flo_to_int" 5) n)))
 
 
 ;;; Generation of hash-values:
