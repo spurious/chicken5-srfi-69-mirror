@@ -1,7 +1,8 @@
 ;; -*- scheme -*-
-((synopsis "SRFI-69 hash-table library")
+((version "1.3")
+ (synopsis "SRFI-69 hash-table library")
  (author "The CHICKEN Team")
  (maintainer "The CHICKEN Team")
  (category data)
  (license "BSD")
- (components (extension srfi-69 (types-file))))
+ (components (extension srfi-69 (types-file (predefined)))))
