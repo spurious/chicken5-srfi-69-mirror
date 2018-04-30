@@ -31,9 +31,6 @@
 
 (foreign-declare "#define C_rnd_fix() (C_fix(rand()))")
 
-(register-feature! 'srfi-69)
-
-
 (define ##sys#number-hash-hook #f)	; used in the "numbers" egg
 
 
@@ -88,11 +85,16 @@
 		 hash-by-identity)
 
   (import (scheme)
-	  (chicken)
+	  (chicken base)
+	  (chicken fixnum)
 	  (chicken foreign)
 	  (chicken flonum)
-	  (chicken keyword))
+	  (chicken keyword)
+	  (chicken platform))
 
+  (import-for-syntax (chicken fixnum))
+
+  (register-feature! 'srfi-69)
 
 ;;; Naming Conventions:
 

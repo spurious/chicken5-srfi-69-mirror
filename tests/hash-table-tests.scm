@@ -1,6 +1,6 @@
 ;;;; hash-table-tests.scm
 
-(require-extension chicken.random data-structures srfi-69)
+(import chicken.fixnum chicken.random chicken.sort srfi-69)
 
 (print "SRFI 69 procedures")
 (assert (eq? hash equal?-hash))
@@ -222,7 +222,7 @@
 (assert (positive? (recursive-hash-max-length)))
 
 (let ((dd (recursive-hash-max-depth))
-      (tls (list (random 100000) (random 100000) (list (random 100000) (list (random 100000) (list (random 100000) (list (random 100000) (list (random 100000) (list (random 100000) (list (random 100000) (list (random 100000) (list (random 100000) (list (random 100000) (list (random 100000) (list (random 100000))))))))))))))))
+      (tls (list (pseudo-random-integer 100000) (pseudo-random-integer 100000) (list (pseudo-random-integer 100000) (list (pseudo-random-integer 100000) (list (pseudo-random-integer 100000) (list (pseudo-random-integer 100000) (list (pseudo-random-integer 100000) (list (pseudo-random-integer 100000) (list (pseudo-random-integer 100000) (list (pseudo-random-integer 100000) (list (pseudo-random-integer 100000) (list (pseudo-random-integer 100000) (list (pseudo-random-integer 100000) (list (pseudo-random-integer 100000))))))))))))))))
   (let ((hsh1 (equal?-hash tls 536870912 0)))
     (recursive-hash-max-depth 10)
     (assert (fx= 10 (recursive-hash-max-depth)))
@@ -232,7 +232,7 @@
       (assert (not (= hsh1 hsh2))) ) ) )
 
 (let ((dl (recursive-hash-max-length))
-      (tv (vector (random 100000) (random 100000) (random 100000) (random 100000) (random 100000) (random 100000) (random 100000) (random 100000) (random 100000) (random 100000) (random 100000) (random 100000))))
+      (tv (vector (pseudo-random-integer 100000) (pseudo-random-integer 100000) (pseudo-random-integer 100000) (pseudo-random-integer 100000) (pseudo-random-integer 100000) (pseudo-random-integer 100000) (pseudo-random-integer 100000) (pseudo-random-integer 100000) (pseudo-random-integer 100000) (pseudo-random-integer 100000) (pseudo-random-integer 100000) (pseudo-random-integer 100000))))
   (let ((hsh1 (equal?-hash tv 536870912 0)))
     (recursive-hash-max-length 10)
     (assert (fx= 10 (recursive-hash-max-length)))
