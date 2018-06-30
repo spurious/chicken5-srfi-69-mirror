@@ -1,6 +1,6 @@
-;; -*- scheme -*-
-((version "1.3")
- (synopsis "SRFI-69 hash-table library")
+;;; srfi-69.egg -*- Scheme -*- vim: ft=scheme:
+
+((synopsis "SRFI-69 hash-table library")
  (author "The CHICKEN Team")
  (maintainer "The CHICKEN Team")
  (category data)
