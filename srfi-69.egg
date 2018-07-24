@@ -5,4 +5,6 @@
  (maintainer "The CHICKEN Team")
  (category data)
  (license "BSD")
- (components (extension srfi-69 (types-file (predefined)))))
+ (components (extension srfi-69
+                        (csc-options "-O3" "-d0")
+                        (types-file (predefined)))))
