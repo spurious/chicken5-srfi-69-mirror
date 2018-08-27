@@ -382,7 +382,7 @@
 	  [(symbol? obj)	  (%symbol-hash obj rnd)]
 	  #; ;NOT YET (no keyword vs. symbol issue)
 	  [(keyword? obj)	  (%keyword-hash obj rnd)]
-	  [(number? obj)	  (%non-fixnum-number-hash obj rnd)]
+	  [(flonum? obj)	  (%non-fixnum-number-hash obj rnd)]
 	  [(%immediate? obj)	  (fxxor unknown-immediate-hash-value rnd)]
 	  [(%byte-block? obj)	  (%string-hash obj rnd)]
 	  [(pair? obj)		  (%%pair-hash obj rnd)]

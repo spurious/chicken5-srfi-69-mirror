@@ -5,6 +5,12 @@
 (print "SRFI 69 procedures")
 (assert (eq? hash equal?-hash))
 (assert (eq? hash-by-identity eq?-hash))
+(assert (eq?-hash 1/2))
+(assert (eq?-hash 1+1i))
+(assert (eqv?-hash 1/2))
+(assert (eqv?-hash 1+1i))
+(assert (equal?-hash 1/2))
+(assert (eqv?-hash 1+1i))
 
 ;; Re-use variable
 (define ht)
