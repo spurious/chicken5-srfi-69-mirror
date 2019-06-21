@@ -246,3 +246,8 @@
       (recursive-hash-max-length dl)
       (print hsh1 " <?> " hsh2)
       (assert (not (= hsh1 hsh2))) ) ) )
+
+;;keyword vs. symbol issue
+(assert (= (keyword-hash #:foo) (eq?-hash #:foo)))
+(assert (= (keyword-hash #:foo) (eqv?-hash #:foo)))
+(assert (= (keyword-hash #:foo) (equal?-hash #:foo)))
