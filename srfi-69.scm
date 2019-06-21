@@ -264,7 +264,6 @@
 (define-inline (%eq?-hash-object? obj)
   (or (%immediate? obj)
        (symbol? obj)
-       #; ;NOT YET (no keyword vs. symbol issue)
        (keyword? obj) ) )
 
 (define (*eq?-hash obj rnd)
@@ -275,7 +274,6 @@
 	[(null? obj)		(fxxor null-hash-value rnd)]
 	[(eof-object? obj)	(fxxor eof-hash-value rnd)]
 	[(symbol? obj)		(%symbol-hash obj rnd)]
-	#; ;NOT YET (no keyword vs. symbol issue)
 	[(keyword? obj)		(%keyword-hash obj rnd)]
 	[(%immediate? obj)	(fxxor unknown-immediate-hash-value rnd)]
 	[else			(%object-uid-hash obj rnd) ] ) )
@@ -301,7 +299,6 @@
 	[(null? obj)		(fxxor null-hash-value rnd)]
 	[(eof-object? obj)	(fxxor eof-hash-value rnd)]
 	[(symbol? obj)		(%symbol-hash obj rnd)]
-	#; ;NOT YET (no keyword vs. symbol issue)
 	[(keyword? obj)		(%keyword-hash obj rnd)]
 	[(number? obj)		(%non-fixnum-number-hash obj rnd)]
 	[(%immediate? obj)	(fxxor unknown-immediate-hash-value rnd)]
@@ -380,7 +377,6 @@
 	  [(null? obj)		  (fxxor null-hash-value rnd)]
 	  [(eof-object? obj)	  (fxxor eof-hash-value rnd)]
 	  [(symbol? obj)	  (%symbol-hash obj rnd)]
-	  #; ;NOT YET (no keyword vs. symbol issue)
 	  [(keyword? obj)	  (%keyword-hash obj rnd)]
 	  [(flonum? obj)	  (%non-fixnum-number-hash obj rnd)]
 	  [(%immediate? obj)	  (fxxor unknown-immediate-hash-value rnd)]
