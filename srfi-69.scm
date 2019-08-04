@@ -206,7 +206,7 @@
                      (randomization hash-default-randomization))
   (unless (number? obj)
     (##sys#signal-hook #:type 'number-hash "invalid number" obj) )
-  (##sys#check-exact bound 'number-hash)
+  (##sys#check-fixnum bound 'number-hash)
   (%hash/limit (%number-hash obj randomization) bound) )
 
 ;; Object UID Hash:
@@ -220,7 +220,7 @@
 
 (define (object-uid-hash obj #!optional (bound hash-default-bound)
                          (randomization hash-default-randomization))
-  (##sys#check-exact bound 'object-uid-hash)
+  (##sys#check-fixnum bound 'object-uid-hash)
   (%hash/limit (%object-uid-hash obj randomization) bound) )
 
 ;; Symbol Hash:
@@ -235,7 +235,7 @@
 (define (symbol-hash obj #!optional (bound hash-default-bound)
                      (randomization hash-default-randomization))
   (##sys#check-symbol obj 'symbol-hash)
-  (##sys#check-exact bound 'symbol-hash)
+  (##sys#check-fixnum bound 'symbol-hash)
   (%hash/limit (%symbol-hash obj randomization) bound) )
 
 ;; Keyword Hash:
@@ -256,7 +256,7 @@
 (define (keyword-hash obj #!optional (bound hash-default-bound)
                       (randomization hash-default-randomization))
   (##sys#check-keyword obj 'keyword-hash)
-  (##sys#check-exact bound 'keyword-hash)
+  (##sys#check-fixnum bound 'keyword-hash)
   (%hash/limit (%keyword-hash obj randomization) bound) )
 
 ;; Eq Hash:
@@ -280,7 +280,7 @@
 
 (define (eq?-hash obj #!optional (bound hash-default-bound)
                   (randomization hash-default-randomization))
-  (##sys#check-exact bound 'eq?-hash)
+  (##sys#check-fixnum bound 'eq?-hash)
   (%hash/limit (*eq?-hash obj randomization) bound) )
 
 (define hash-by-identity eq?-hash)
@@ -306,7 +306,7 @@
 
 (define (eqv?-hash obj #!optional (bound hash-default-bound)
                    (randomization hash-default-randomization))
-  (##sys#check-exact bound 'eqv?-hash)
+  (##sys#check-fixnum bound 'eqv?-hash)
   (%hash/limit (*eqv?-hash obj randomization) bound) )
 
 ;; Equal Hash:
@@ -391,7 +391,7 @@
 
 (define (equal?-hash obj #!optional (bound hash-default-bound)
                      (randomization hash-default-randomization))
-  (##sys#check-exact bound 'hash)
+  (##sys#check-fixnum bound 'hash)
   (%hash/limit (*equal?-hash obj randomization) bound) )
 
 (define hash equal?-hash)
@@ -401,7 +401,7 @@
 (define (string-hash str #!optional (bound hash-default-bound) start end
                      (randomization hash-default-randomization))
   (##sys#check-string str 'string-hash)
-  (##sys#check-exact bound 'string-hash)
+  (##sys#check-fixnum bound 'string-hash)
   (let ((str (if start
                  (let ((end (or end (##sys#size str))))
                    (##sys#check-range start 0 (##sys#size str) 'string-hash)
@@ -413,7 +413,7 @@
 (define (string-ci-hash str #!optional (bound hash-default-bound) start end
                      (randomization hash-default-randomization))
   (##sys#check-string str 'string-ci-hash)
-  (##sys#check-exact bound 'string-ci-hash)
+  (##sys#check-fixnum bound 'string-ci-hash)
   (let ((str (if start
                  (let ((end (or end (##sys#size str))))
                    (##sys#check-range start 0 (##sys#size str) 'string-hash)
@@ -483,7 +483,7 @@
 		  (user-function object bound randomization))))
 	  (lambda (object bound)
 	    (let ((hash (user-function object bound)))
-	      (##sys#check-exact hash 'hash user-function)
+	      (##sys#check-fixnum hash 'hash)
 	      (if (and (fx< hash bound) (fx>= hash 0))
 		  hash
 		  (##sys#signal-hook
@@ -566,7 +566,7 @@
 	  (unless (null? arguments)
 	    (let ([arg (car arguments)])
 	      (unless (keyword? arg)
-		(##sys#check-exact arg 'make-hash-table)
+		(##sys#check-fixnum arg 'make-hash-table)
 		(unless (fx< 0 arg)
 		  (error 'make-hash-table "invalid size" arg) )
 		(set! size (fxmin hash-table-max-length arg))
@@ -591,7 +591,7 @@
 			    (##sys#check-closure val 'make-hash-table)
 			    (set! hash val)]
 			  [(#:size)
-			    (##sys#check-exact val 'make-hash-table)
+			    (##sys#check-fixnum val 'make-hash-table)
 			    (unless (fx< 0 val)
 			      (error 'make-hash-table "invalid size" val) )
 			    (set! size (fxmin hash-table-max-length val))]
