@@ -496,8 +496,10 @@
   (let ([make-vector make-vector])
     (lambda (test hash len min-load max-load weak-keys weak-values initial
                   #!optional (vec (make-vector len '())))
-      (let ((ht (##sys#make-structure 'hash-table
-                 vec 0 test hash min-load max-load #f #f initial #f)))
+      (let* ((min-load-len (inexact->exact (floor (* len min-load)))) ;; Cached values to speed up hash-table-check-resize!
+             (max-load-len (inexact->exact (floor (* len max-load))))
+             (ht (##sys#make-structure 'hash-table
+                                       vec 0 test hash min-load max-load #f #f initial #f min-load-len max-load-len)))
         (##sys#setslot ht 10 (*make-hash-function hash))
         ht) ) ) )
 
@@ -695,24 +697,28 @@
 ;; hash-table-resize!:
 
 (define (hash-table-resize! ht vec len)
-  (let* ([deslen (fxmin hash-table-max-length (fx* len hash-table-new-length-factor))]
-         [newlen (hash-table-canonical-length hash-table-prime-lengths deslen)]
-         [vec2 (make-vector newlen '())] )
+  (let* ((deslen (fxmin hash-table-max-length (fx* len hash-table-new-length-factor)))
+         (newlen (hash-table-canonical-length hash-table-prime-lengths deslen))
+         (min-load (##sys#slot ht 5))
+         (new-min-load-len (inexact->exact (floor (* len min-load))))
+         (max-load (##sys#slot ht 6))
+         (new-max-load-len (inexact->exact (floor (* len max-load))))
+         (vec2 (make-vector newlen '())) )
     (hash-table-rehash! vec vec2 (##sys#slot ht 10))
-    (##sys#setslot ht 1 vec2) ) )
+    (##sys#setslot ht 1 vec2)
+    (##sys#setslot ht 11 new-min-load-len)
+    (##sys#setslot ht 12 new-max-load-len)) )
 
 ;; hash-table-check-resize!:
 
 (define-inline (hash-table-check-resize! ht newsiz)
-  (let ([vec (##sys#slot ht 1)]
-        [min-load (##sys#slot ht 5)]
-        [max-load (##sys#slot ht 6)] )
-    (let ([len (##sys#size vec)] )
-      (let ([min-load-len (inexact->exact (floor (* len min-load)))]
-            [max-load-len (inexact->exact (floor (* len max-load)))] )
-        (if (and (fx< len hash-table-max-length)
-                 (fx<= min-load-len newsiz) (fx<= newsiz max-load-len))
-          (hash-table-resize! ht vec len) ) ) ) ) )
+  (let* ((vec (##sys#slot ht 1))
+         (min-load-len (##sys#slot ht 11))
+         (max-load-len (##sys#slot ht 12))
+         (len (##sys#size vec)))
+    (if (and (fx< len hash-table-max-length)
+             (fx<= min-load-len newsiz) (fx<= newsiz max-load-len))
+        (hash-table-resize! ht vec len) )   ) )
 
 ;; hash-table-copy:
 
