@@ -27,7 +27,7 @@
 		     (((struct hash-table)) (##sys#slot #(1) '6)))
 
 (srfi-69#hash-table-merge (#(procedure #:clean #:enforce) srfi-69#hash-table-merge ((struct hash-table) (struct hash-table)) (struct hash-table)))
-(srfi-69#hash-table-merge! (#(procedure #:clean #:enforce) srfi-69#hash-table-merge! ((struct hash-table) (struct hash-table)) undefined))
+(srfi-69#hash-table-merge! (#(procedure #:clean #:enforce) srfi-69#hash-table-merge! ((struct hash-table) (struct hash-table)) (struct hash-table)))
 
 (srfi-69#hash-table-min-load (#(procedure #:clean #:enforce) srfi-69#hash-table-min-load ((struct hash-table)) fixnum)
 		     (((struct hash-table)) (##sys#slot #(1) '5)))
